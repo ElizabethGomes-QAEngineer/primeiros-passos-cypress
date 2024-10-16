@@ -6,7 +6,9 @@ describe('Orange HRM Teste', () => {
     passwordField: "[name='password']" , 
     loginButton: "[type='submit']" , 
     sectionTittleTopBar:".oxd-topbar-header-breadcrumb",
+    dashboardLayout: ".orangehrm-upgrade-layout",
     wrongCredentialAlert: "[role='alert']"
+    
 
   
   }
@@ -17,7 +19,7 @@ describe('Orange HRM Teste', () => {
     cy.get(SelectorsList.passwordField).type('admin123')
     cy.get(SelectorsList.loginButton).click()
     cy.location('pathname').should('equal','/web/index.php/dashboard/index')
-    cy.get(SelectorsList.sectionTittleTopBar).contains('Dashboard')
+    cy.get(SelectorsList.dashboardLayout)
   
   })
 
