@@ -20,7 +20,9 @@ describe('Orange HRM Teste', () => {
     genericField: ".oxd-input--active",
     dataLicenseField:".oxd-input--active",
     submitButton:"[type='submit']",
-    
+    selectorSectionMyInfo: ".oxd-select-text--active",
+    selectorNationality:":nth-child(5) > :nth-child(1) > :nth-child(1) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text--after > .oxd-icon",
+    selectorCountry:":nth-child(27)"
   
   }
 
@@ -63,11 +65,13 @@ describe('Orange HRM Teste', () => {
     cy.get(SelectorsList.genericField).eq(6).clear().type('DriversLicenseTest')
     cy.get(SelectorsList.genericField).eq(8).clear().type('Nationality')
     cy.get(SelectorsList.submitButton).eq(0).click()
-    
-
+    cy.get(SelectorsList.selectorNationality).click()
+    cy.get(SelectorsList.selectorCountry).click
 
   
-  })
+    }) 
+
+    
 
   it('Login Fail', () => {
     cy.visit('/auth/login')
@@ -79,4 +83,4 @@ describe('Orange HRM Teste', () => {
 
 })
 
-})
+  })
