@@ -13,7 +13,14 @@ describe('Orange HRM Teste', () => {
     sectionTittleTopBar:".oxd-topbar-header-breadcrumb",
     dashboardLayout: ".orangehrm-upgrade-layout",
     wrongCredentialAlert: "[role='alert']",
-    myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]'
+    myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
+    firstNameField:"[name='firstName']",
+    middleNameField:"[name='middleName']",
+    lastNameField: "[name='lastName']" ,
+    genericField: ".oxd-input--active",
+    dataLicenseField:".oxd-input--active",
+    submitButton:"[type='submit']",
+    
   
   }
 
@@ -32,7 +39,33 @@ describe('Orange HRM Teste', () => {
     cy.location('pathname').should('equal','/web/index.php/dashboard/index')
     cy.get(SelectorsList.dashboardLayout)
     cy.get(SelectorsList.myInfoButton).click()
+
+
+    cy.get(SelectorsList.dataLicenseField)
+    .should('have.length.greaterThan', 0) 
+    .then($fields => {
+      if ($fields.length) {
+        cy.debug(); 
+        debugger;
+        
+        cy.get($fields[0]).clear().type('2024-10-17'); 
+      } else {
+        cy.log('Elemento de data não encontrado');
+      }
+    });
+
+
+    cy.get(SelectorsList.firstNameField).clear().type('firstNameTest')
+    cy.get(SelectorsList.middleNameField).clear().type('middleNameTest')
+    cy.get(SelectorsList.lastNameField).clear().type('lastNameTest')
+    cy.get(SelectorsList.genericField).eq(4).clear().type('Employee')
+    cy.get(SelectorsList.genericField).eq(5).clear().type('OtherIdTest')
+    cy.get(SelectorsList.genericField).eq(6).clear().type('DriversLicenseTest')
+    cy.get(SelectorsList.genericField).eq(8).clear().type('Nationality')
+    cy.get(SelectorsList.submitButton).eq(0).click()
     
+
+
   
   })
 
