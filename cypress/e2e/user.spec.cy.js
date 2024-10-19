@@ -22,7 +22,9 @@ describe('Orange HRM Teste', () => {
     submitButton:"[type='submit']",
     selectorSectionMyInfo: ".oxd-select-text--active",
     selectorNationality:":nth-child(5) > :nth-child(1) > :nth-child(1) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text--after > .oxd-icon",
-    selectorCountry:":nth-child(27)"
+    selectorCountry:":nth-child(27)",
+    maritalStatus:":nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text",
+    optionSelected:":nth-child(2)",
   
   }
 
@@ -64,10 +66,13 @@ describe('Orange HRM Teste', () => {
     cy.get(SelectorsList.genericField).eq(5).clear().type('OtherIdTest')
     cy.get(SelectorsList.genericField).eq(6).clear().type('DriversLicenseTest')
     cy.get(SelectorsList.genericField).eq(8).clear().type('Nationality')
-    cy.get(SelectorsList.submitButton).eq(0).click()
+    cy.get(SelectorsList.submitButton).eq(0).click({force: true })
     cy.get(SelectorsList.selectorNationality).click()
     cy.get(SelectorsList.selectorCountry).click
-
+    cy.get(SelectorsList.maritalStatus).click({force: true})
+    cy.get(SelectorsList.optionSelected).click
+    
+    
   
     }) 
 
