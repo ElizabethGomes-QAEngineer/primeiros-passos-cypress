@@ -1,6 +1,14 @@
 
 
-import userData from '../fixtures/userData.json'
+import testUserData from '../fixtures/userData.json'
+
+import LoginPage from './page/loginPage.js'
+
+const loginPage= new LoginPage();
+
+import dashboardPage from './page/dashBoardPage.js'
+
+const dashboardPageInstance= new dashboardPage();
 
 
 describe('Orange HRM Teste', () => {
@@ -30,51 +38,51 @@ describe('Orange HRM Teste', () => {
 
   const userData= { userSucess: { username: 'Admin',
     password: 'admin123'
-  }, 
+ }, 
   
-  userFail:{ username:'teste', password:'teste'} }
+ userFail:{ username:'teste', password:'teste'} }
 
   it.only('User Infor Update', () => {
+    loginPage.acessLoginPage();
+    loginPage.loginWithUser(userData.userSucess.username,userData.userSucess.password);
+    
 
-    cy.visit('/auth/login')
-    cy.get(SelectorsList.usernameField).type(userData.userSucess.username)
-    cy.get(SelectorsList.passwordField).type(userData.userSucess.password)
-    cy.get(SelectorsList.loginButton).click()
-    cy.location('pathname').should('equal','/web/index.php/dashboard/index')
-    cy.get(SelectorsList.dashboardLayout)
+    dashboardPageInstance.checkDashBoardLayout()
+ 
+    
     cy.get(SelectorsList.myInfoButton).click()
 
 
     cy.get(SelectorsList.dataLicenseField)
-    .should('have.length.greaterThan', 0) 
+   .should('have.length.greaterThan', 0) 
     .then($fields => {
-      if ($fields.length) {
-        cy.debug(); 
-        debugger;
+    if ($fields.length) {
+       cy.debug(); 
+     debugger;
         
-        cy.get($fields[0]).clear().type('2024-10-17'); 
-      } else {
-        cy.log('Elemento de data não encontrado');
-      }
-    });
+      cy.get($fields[0]).clear().type('2024-10-17'); 
+     } else {
+       cy.log('Elemento de data não encontrado');
+      };
+
+    })
 
 
-    cy.get(SelectorsList.firstNameField).clear().type('firstNameTest')
-    cy.get(SelectorsList.middleNameField).clear().type('middleNameTest')
-    cy.get(SelectorsList.lastNameField).clear().type('lastNameTest')
-    cy.get(SelectorsList.genericField).eq(4).clear().type('Employee')
-    cy.get(SelectorsList.genericField).eq(5).clear().type('OtherIdTest')
-    cy.get(SelectorsList.genericField).eq(6).clear().type('DriversLicenseTest')
-    cy.get(SelectorsList.genericField).eq(8).clear().type('Nationality')
-    cy.get(SelectorsList.submitButton).eq(0).click({force: true })
-    cy.get(SelectorsList.selectorNationality).click()
-    cy.get(SelectorsList.selectorCountry).click
-    cy.get(SelectorsList.maritalStatus).click({force: true})
-    cy.get(SelectorsList.optionSelected).click
-    
+   cy.get(SelectorsList.firstNameField).clear().type('firstNameTest')
+   cy.get(SelectorsList.middleNameField).clear().type('middleNameTest')
+   cy.get(SelectorsList.lastNameField).clear().type('lastNameTest')
+   cy.get(SelectorsList.genericField).eq(4).clear().type('Employee')
+   cy.get(SelectorsList.genericField).eq(5).clear().type('OtherIdTest')
+   cy.get(SelectorsList.genericField).eq(6).clear().type('DriversLicenseTest')
+   cy.get(SelectorsList.genericField).eq(8).clear().type('Nationality')
+   cy.get(SelectorsList.submitButton).eq(0).click({force: true })
+   cy.get(SelectorsList.selectorNationality).click()
+   cy.get(SelectorsList.selectorCountry).click()
+   cy.get(SelectorsList.maritalStatus).click({force: true})
+   cy.get(SelectorsList.optionSelected).click
     
   
-    }) 
+    }) ;
 
     
 
@@ -86,6 +94,6 @@ describe('Orange HRM Teste', () => {
     cy.get(SelectorsList.wrongCredentialAlert)
    
 
-})
+});
 
-  })
+})
