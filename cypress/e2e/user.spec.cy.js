@@ -4,12 +4,14 @@ import testUserData from '../fixtures/userData.json'
 
 import LoginPage from './page/loginPage.js'
 
-const loginPage= new LoginPage();
-
 import dashboardPage from './page/dashBoardPage.js'
 
-const dashboardPageInstance= new dashboardPage();
+import menuPage from './page/menuPage.js'
 
+
+const loginPage= new LoginPage();
+const dashboardPageInstance= new dashboardPage();
+const menuPageInstance= new menuPage();
 
 describe('Orange HRM Teste', () => {
 
@@ -48,10 +50,10 @@ describe('Orange HRM Teste', () => {
     
 
     dashboardPageInstance.checkDashBoardLayout()
+
+    menuPageInstance.acessMyInfo()
  
     
-    cy.get(SelectorsList.myInfoButton).click()
-
 
     cy.get(SelectorsList.dataLicenseField)
    .should('have.length.greaterThan', 0) 
