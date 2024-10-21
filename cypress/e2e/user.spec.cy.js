@@ -8,10 +8,14 @@ import dashboardPage from './page/dashBoardPage.js'
 
 import menuPage from './page/menuPage.js'
 
+import myInfor from'./page/myInfoPage.js'
+import myInfoPage from './page/myInfoPage.js'
+
 
 const loginPage= new LoginPage();
 const dashboardPageInstance= new dashboardPage();
 const menuPageInstance= new menuPage();
+const myInfoPageInstance = new myInfoPage();
 
 describe('Orange HRM Teste', () => {
 
@@ -20,10 +24,6 @@ describe('Orange HRM Teste', () => {
     usernameField: "[name='username']" , 
     passwordField: "[name='password']" , 
     loginButton: "[type='submit']" , 
-    sectionTittleTopBar:".oxd-topbar-header-breadcrumb",
-    dashboardLayout: ".orangehrm-upgrade-layout",
-    wrongCredentialAlert: "[role='alert']",
-    myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
     firstNameField:"[name='firstName']",
     middleNameField:"[name='middleName']",
     lastNameField: "[name='lastName']" ,
@@ -52,6 +52,14 @@ describe('Orange HRM Teste', () => {
     dashboardPageInstance.checkDashBoardLayout()
 
     menuPageInstance.acessMyInfo()
+
+    myInfoPageInstance.fillPersonalDetailsInfo ('firstName','middleName', 'lastName')
+
+    myInfoPageInstance.fillEmployeeFild ('employee','otherId','driversLicense','nationality')
+
+    myInfoPageInstance.fillStatus()
+
+    myInfoPageInstance.saveForm ()
  
     
 
