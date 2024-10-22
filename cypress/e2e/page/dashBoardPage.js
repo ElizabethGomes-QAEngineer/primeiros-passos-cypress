@@ -5,6 +5,7 @@ selectorList () {
 
         sectionTittleTopBar:".oxd-topbar-header-breadcrumb",
         dashboardLayout: ".orangehrm-upgrade-layout",
+        locationUrl:"https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
 
 
     } 
@@ -23,12 +24,17 @@ return cy.get(selectors.sectionTittleTopBar)
 
 checkDashBoardLayout () { 
 
-    cy.location('pathname').should('equal','/web/index.php/dashboard/index')
-    cy.get(this.selectorList().dashboardLayout).should('be.visible')
+    cy.location('pathname').should('equal','/web/index.php/dashboard/index');
+
+    cy.get(this.selectorList().dashboardLayout).should('be.visible');
+
+
+} 
 
 }
 
-}
 
+
+ 
 
 export default dashboardPage

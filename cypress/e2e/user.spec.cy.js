@@ -2,106 +2,65 @@
 
 import testUserData from '../fixtures/userData.json'
 
-import LoginPage from './page/loginPage.js'
+import loginPage from './page/loginPage.js'
 
 import dashboardPage from './page/dashBoardPage.js'
 
 import menuPage from './page/menuPage.js'
 
 import myInfor from'./page/myInfoPage.js'
+
 import myInfoPage from './page/myInfoPage.js'
 
 
-const loginPage= new LoginPage();
+const loginPageInstance= new loginPage();
 const dashboardPageInstance= new dashboardPage();
 const menuPageInstance= new menuPage();
 const myInfoPageInstance = new myInfoPage();
 
+
+
 describe('Orange HRM Teste', () => {
 
-  const SelectorsList = { 
+
+  it('User Infor Update', () => {
+
+  loginPageInstance.acessLoginPage()
+
+   const 
     
-    usernameField: "[name='username']" , 
-    passwordField: "[name='password']" , 
-    loginButton: "[type='submit']" , 
-    firstNameField:"[name='firstName']",
-    middleNameField:"[name='middleName']",
-    lastNameField: "[name='lastName']" ,
-    genericField: ".oxd-input--active",
-    dataLicenseField:".oxd-input--active",
-    submitButton:"[type='submit']",
-    selectorSectionMyInfo: ".oxd-select-text--active",
-    selectorNationality:":nth-child(5) > :nth-child(1) > :nth-child(1) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text--after > .oxd-icon",
-    selectorCountry:":nth-child(27)",
-    maritalStatus:":nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-select-wrapper > .oxd-select-text",
-    optionSelected:":nth-child(2)",
-  
-  }
+   userData = loginPageInstance.getUserData(); 
 
-  const userData= { userSucess: { username: 'Admin',
-    password: 'admin123'
- }, 
-  
- userFail:{ username:'teste', password:'teste'} }
+   cy.wait(2000)
 
-  it.only('User Infor Update', () => {
-    loginPage.acessLoginPage();
-    loginPage.loginWithUser(userData.userSucess.username,userData.userSucess.password);
+   cy.get('body').then(($body) => {
+   console.log($body.html());
     
-
+   loginPageInstance.loginWithUser(userData.userSucess.username, userData.userSucess.password);
+    
     dashboardPageInstance.checkDashBoardLayout()
 
     menuPageInstance.acessMyInfo()
 
     myInfoPageInstance.fillPersonalDetailsInfo ('firstName','middleName', 'lastName')
 
-    myInfoPageInstance.fillEmployeeFild ('employee','otherId','driversLicense','nationality')
+    myInfoPageInstance.fillEmployeeFild ('employee','otherId','2024-10-21','nationality')
 
     myInfoPageInstance.fillStatus()
 
     myInfoPageInstance.saveForm ()
  
-    
+  })
 
-    cy.get(SelectorsList.dataLicenseField)
-   .should('have.length.greaterThan', 0) 
-    .then($fields => {
-    if ($fields.length) {
-       cy.debug(); 
-     debugger;
-        
-      cy.get($fields[0]).clear().type('2024-10-17'); 
-     } else {
-       cy.log('Elemento de data não encontrado');
-      };
-
-    })
-
-
-   cy.get(SelectorsList.firstNameField).clear().type('firstNameTest')
-   cy.get(SelectorsList.middleNameField).clear().type('middleNameTest')
-   cy.get(SelectorsList.lastNameField).clear().type('lastNameTest')
-   cy.get(SelectorsList.genericField).eq(4).clear().type('Employee')
-   cy.get(SelectorsList.genericField).eq(5).clear().type('OtherIdTest')
-   cy.get(SelectorsList.genericField).eq(6).clear().type('DriversLicenseTest')
-   cy.get(SelectorsList.genericField).eq(8).clear().type('Nationality')
-   cy.get(SelectorsList.submitButton).eq(0).click({force: true })
-   cy.get(SelectorsList.selectorNationality).click()
-   cy.get(SelectorsList.selectorCountry).click()
-   cy.get(SelectorsList.maritalStatus).click({force: true})
-   cy.get(SelectorsList.optionSelected).click
-    
-  
-    }) ;
-
+  })
     
 
   it('Login Fail', () => {
-    cy.visit('/auth/login')
-    cy.get(SelectorsList.usernameField).type(userData.userFail.username)
-    cy.get(SelectorsList.passwordField).type(userData.userFail.password)
-    cy.get(SelectorsList.loginButton).click()
-    cy.get(SelectorsList.wrongCredentialAlert)
+   
+   loginPageInstance.acessLoginPage()
+   const userFailData = loginPageInstance.getUserData().userFail
+   loginPageInstance.loginWithUser(userFailData.username,userFailData.password)
+   loginPageInstance.checkAcessInvalid()
    
 
 });

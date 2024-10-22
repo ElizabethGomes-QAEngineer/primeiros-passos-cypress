@@ -37,11 +37,11 @@ class myInfoPage {
 
 
      
-    fillEmployeeFild(employee,otherId, driversLicense, nationality) { 
+    fillEmployeeFild(employee,otherId, driversLicenseDate, nationality) { 
         cy.get(this.selectorsList().genericField).eq(4).clear().type(employee);
         cy.get(this.selectorsList().genericField).eq(5).clear().type(otherId);
-        cy.get(this.selectorsList().genericField).eq(6).clear().type(driversLicense);
-        cy.get(this.selectorsList().genericField).eq(8).clear().type(nationality);
+        cy.get(this.selectorsList().genericField).eq(6).clear({ force: true }).type(driversLicenseDate);
+        cy.get(this.selectorsList().genericField).eq(8).clear({ force: true }).type(nationality);
 
    }
 
@@ -52,7 +52,7 @@ class myInfoPage {
     
     fillStatus() {
         cy.get(this.selectorsList().selectorNationality).click();
-        cy.get(this.selectorsList().selectorCountry).click();
+        cy.get(this.selectorsList().selectorCountry).first().click();
         cy.get(this.selectorsList().maritalStatus).click({force: true});
         cy.get(this.selectorsList().optionSelected).click;
     }
