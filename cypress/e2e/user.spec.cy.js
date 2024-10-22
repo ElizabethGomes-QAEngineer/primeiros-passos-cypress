@@ -13,6 +13,11 @@ import myInfor from'./page/myInfoPage.js'
 import myInfoPage from './page/myInfoPage.js'
 
 
+const Chance = require('chance')
+
+const chance = new Chance()
+
+
 const loginPageInstance= new loginPage();
 const dashboardPageInstance= new dashboardPage();
 const menuPageInstance= new menuPage();
@@ -42,9 +47,9 @@ describe('Orange HRM Teste', () => {
 
     menuPageInstance.acessMyInfo()
 
-    myInfoPageInstance.fillPersonalDetailsInfo ('firstName','middleName', 'lastName')
+    myInfoPageInstance.fillPersonalDetailsInfo (chance.first(),'middleName', chance.last(),chance.string())
 
-    myInfoPageInstance.fillEmployeeFild ('employee','otherId','2024-10-21','nationality')
+    myInfoPageInstance.fillEmployeeFild (chance.string(),'otherId',chance.date({string: true, american: false}),'nationality')
 
     myInfoPageInstance.fillStatus()
 
